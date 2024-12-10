@@ -1,6 +1,6 @@
 # Welcome to my React Native app 👋
 
-This is a react native app which was originally created using simple vanilla js, then was turned into a react app and finally, for the final project of the class, was converted into a react native app using Expo. Instructions to run the app can be found below.
+This is a react native app which was originally created using simple vanilla js, then was turned into a react app, and finally, for the final project of the class, it was converted into a react native app using Expo. Instructions to run the app can be found below.
 
 ## Get started
 
