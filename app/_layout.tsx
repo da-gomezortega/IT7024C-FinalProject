@@ -1,39 +1,55 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { useFonts } from 'expo-font';
-import { Stack } from 'expo-router';
-import * as SplashScreen from 'expo-splash-screen';
-import { StatusBar } from 'expo-status-bar';
-import { useEffect } from 'react';
-import 'react-native-reanimated';
+import { Stack } from "expo-router";
+import React, { useState, useEffect } from 'react';
+import { View, ActivityIndicator, Image, Button } from 'react-native';
+import { NavButtons } from '@/components/NavButtons'
+import * as Font from 'expo-font';
+import { Roboto_400Regular, Roboto_700Bold } from '@expo-google-fonts/roboto';
+import { Poppins_400Regular, Poppins_600SemiBold } from '@expo-google-fonts/poppins';
+import styles from '../styles';
 
-import { useColorScheme } from '@/hooks/useColorScheme';
+function LogoTitle() {
+  return (
+    <Image source={require("../assets/images/logo3.png")} />
+  )
+}
 
-// Prevent the splash screen from auto-hiding before asset loading is complete.
-SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-  const colorScheme = useColorScheme();
-  const [loaded] = useFonts({
-    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
-  });
+  const [fontsLoaded, setFontsLoaded] = useState(false);
+  const [count, setCount] = useState(0);
 
   useEffect(() => {
-    if (loaded) {
-      SplashScreen.hideAsync();
+    async function loadFonts() {
+      await Font.loadAsync({
+        Poppins_400Regular,
+        Poppins_600SemiBold,
+        Roboto_400Regular,
+        Roboto_700Bold
+      });
+      setFontsLoaded(true);
     }
-  }, [loaded]);
+    loadFonts();
+  }, []);
 
-  if (!loaded) {
-    return null;
+  if (!fontsLoaded) {
+    return (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <ActivityIndicator size="large" color="#0000ff" />
+      </View>
+    );
   }
-
+  
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="+not-found" />
-      </Stack>
-      <StatusBar style="auto" />
-    </ThemeProvider>
+    <Stack 
+      screenOptions={{
+        headerStyle: { backgroundColor: styles.navbar.backgroundColor },
+        headerTintColor: '#fff',
+        headerTitleStyle: {
+          fontWeight: 'bold',
+        },
+        headerTitle: () => <LogoTitle />,
+        headerRight: () =>  <NavButtons />,
+      }}
+    />
   );
 }
