@@ -1,6 +1,6 @@
-# Welcome to your Expo app 👋
+# Welcome to my React Native app 👋
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+This is a react native app which was originally created using simple vanilla js, then was turned into a react app and finally, for the final project of the class, was converted into a react native app using Expo. Instructions to run the app can be found below.
 
 ## Get started
 
